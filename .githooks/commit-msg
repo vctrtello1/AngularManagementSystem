@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+# Revisa el asunto del commit (la primera linea) antes de guardarlo.
+#
+# Se instala una vez por repo:
+#   git config core.hooksPath .githooks
+#
+# Y se saltea cuando hace falta (un merge, un apuro):
+#   git commit --no-verify -m "lo que sea"
+#
+# La regla y todos los ejemplos estan en GUIA-COMMITS.md.
+
+archivo="$1"
+asunto=$(head -1 "$archivo")
+
+# Los casos que no se revisan: merges, reverts y los fixup/squash de un rebase.
+case "$asunto" in
+  Merge*|Revert*|fixup!*|squash!*) exit 0 ;;
+esac
+
+tipos="feat|fix|docs|style|refactor|perf|test|chore|build|ci|revert"
+
+if printf '%s' "$asunto" | grep -qE "^($tipos)(\([^)]+\))?!?: .+"; then
+  largo=$(printf '%s' "$asunto" | wc -c | tr -d ' ')
+  if [ "$largo" -gt 72 ]; then
+    echo "commit-msg: el asunto tiene $largo caracteres y el limite es 72." >&2
+    echo "            Lo que sobra va en el cuerpo, separado por una linea en blanco." >&2
+    exit 1
+  fi
+  exit 0
+fi
+
+cat >&2 <<'FIN'
+commit-msg: el asunto no sigue el formato.
+
+  tipo(alcance): asunto        por ejemplo:  fix(api): el score devolvia null
+
+Los tipos: feat, fix, docs, style, refactor, perf, test, chore, build, ci, revert.
+
+Lo que suele faltar:
+  - El tipo adelante:     "optimizacion"    ->  "perf(front): ..."
+  - Decir que, no como:   "cleanup code"    ->  "chore: limpieza de restos del CLI"
+  - En minusculas:        "Fix modal"       ->  "fix(modal): ..."
+  - Sin punto final:      "mostrar tasks."  ->  "feat(tasks): mostrar las tareas"
+  - Si el asunto no alcanza, el porque va en el cuerpo (linea en blanco + parrafos).
+
+Si es un merge o estas apurado:  git commit --no-verify -m "..."
+FIN
+exit 1
