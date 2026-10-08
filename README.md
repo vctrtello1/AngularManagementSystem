@@ -18,6 +18,7 @@ npm run build                                         # compila a dist/managemen
 
 ## Estado
 
-El reparto está **hecho**: el encabezado y las tres tarjetas viven en sus componentes, y
-`AppComponent` solo los usa. **12 pruebas en 4 specs**, y el build compila a
-`dist/management-system`. El detalle, en la sección 4 de la guía.
+El reparto está **hecho**: el encabezado, las tres tarjetas —envueltas en una tarjeta
+reutilizable que recibe el título y la imagen por `@Input`— y `AppComponent` repartiendo
+los datos. **14 pruebas en 5 specs**, y el build compila a `dist/management-system`. El
+detalle, en la sección 4 de la guía.
