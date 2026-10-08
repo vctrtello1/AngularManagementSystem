@@ -3,6 +3,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
+    "rootDir": "./src",
     "strict": true,
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
@@ -28,5 +29,15 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  /* Este archivo es la base común, no un proyecto.
+     Antes, sin `files` ni `include`, este mismo archivo compilaba todo (incluidos los
+     .spec.ts) y con TypeScript 6 los tipos de Jasmine ya no se incluyen solos: marcaba
+     "Cannot find name 'describe'". Con la lista de proyectos acá, los tests los revisa
+     tsconfig.spec.json, que declara `types: ["jasmine"]`. */
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.spec.json" }
+  ]
 }
