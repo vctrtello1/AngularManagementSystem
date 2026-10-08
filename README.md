@@ -1,27 +1,23 @@
 # Management System
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.0-next.2.
+Tablero de administración con Angular 18, como ejercicio del curso (módulo *component
+deep dive*): un encabezado y tres tarjetas —estado del servidor, tráfico de los últimos
+siete días y tickets de soporte— con datos de ejemplo.
 
-## Development server
+La explicación del código —qué hace cada archivo, cómo se conectan y qué se aprendió en
+el camino— está en **[DOCUMENTACION.md](DOCUMENTACION.md)**.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Correrlo
 
-## Code scaffolding
+```bash
+npm start                                             # servidor en http://localhost:4200
+npm test                                              # tests en modo watch (abre Chrome)
+npx ng test --watch=false --browsers=ChromeHeadless   # los tests una vez, sin ventana
+npm run build                                         # compila a dist/management-system
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Estado
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+El reparto está **hecho**: el encabezado y las tres tarjetas viven en sus componentes, y
+`AppComponent` solo los usa. **12 pruebas en 4 specs**, y el build compila a
+`dist/management-system`. El detalle, en la sección 4 de la guía.
