@@ -1,18 +1,19 @@
-
 <app-header></app-header>
 
 <main>
   <div id="dashboard">
-    <div class="dashboard-item">
-      <app-server-status></app-server-status>
-    </div>
 
-    <div class="dashboard-item">
-      <app-traffic></app-traffic>
-    </div>
+    <app-dashboard-item [title]="statusItem.title" [image]="statusItem.image">
+      <app-server-status />
+    </app-dashboard-item>
 
-    <div class="dashboard-item">
-      <app-tickets></app-tickets>
-    </div>
+    <app-dashboard-item [title]="trafficItem.title" [image]="trafficItem.image">
+      <app-traffic />
+    </app-dashboard-item>
+
+    <app-dashboard-item [title]="ticketsItem.title" [image]="ticketsItem.image">
+      <app-tickets />
+    </app-dashboard-item>
   </div>
+
 </main>

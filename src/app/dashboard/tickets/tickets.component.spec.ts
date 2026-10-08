@@ -26,10 +26,10 @@ describe('TicketsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should render the title and the pending list placeholder', () => {
+  it('should render the pending list placeholder', () => {
+    // El título lo pone la tarjeta que lo envuelve, no este componente.
     const raiz = fixture.nativeElement as HTMLElement;
 
-    expect(raiz.querySelector('h2')?.textContent).toContain('Support Tickets');
     expect(raiz.querySelector('#status')?.textContent).toContain('Todo...');
   });
 });
